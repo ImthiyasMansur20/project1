@@ -2,6 +2,4 @@ this is my first program
 this is my first project
 i'm glad to start my career with indium
 
-I forked this project
 
-code is changed
