@@ -1,45 +1,173 @@
 package roomManagement;
 
-public class Guest {
-	
-	String guestName;
-	Room roomNo;
-	int noOfDays;
-	double rate;
-	String discount;
-	
-	public Guest() {
-	}
-	
-	public Guest(String guestName,Room roomNo,int noOfDays) {
-		this.guestName=guestName;
-		this.noOfDays=noOfDays;
-		this.roomNo=new Room();
-		this.roomNo=roomNo;
+import java.util.*;
+
+public class RoomAllocator {
+
+	public static void main(String args[]) {
+
 		
-		if(noOfDays>5&&noOfDays<=10) {
-			this.rate=roomNo.rate*(double)noOfDays;
-			rate-=rate*((double)5/(double)100);
-			discount="5%";
+
+		try (Scanner scanf = new Scanner(System.in)) {
+
+			ArrayList<Guest> a1=new ArrayList<>();
+
+			ArrayList<Room> r1=new ArrayList<>();
+
+			
+
+			r1.add(new Room(1,4,600));
+
+			r1.add(new Room(2,4,700));
+
+			r1.add(new Room(3,4,850));
+
+			r1.add(new Room(4,4,1000));
+
+			r1.add(new Room(5,4,1200));
+
+			
+
+			for(;;) {
+
+				System.out.println("Enter \"1\" to Book Room\nEnter \"2\" to Generate Guest Report\nEnter \"3\" to Generate Total Guest and Rate Report\nEnter \"4\" to Exit");
+
+				int n=scanf.nextInt();
+
+				scanf.nextLine();
+
+				System.out.println();
+
+				switch(n) {
+
+					case 1:
+
+						int count=0;
+
+						int wrong=0;
+
+						
+
+						System.out.println("Available Rooms: \n");
+
+						for(Room r2:r1) {
+
+							if(r2.vaccancy>0) {
+
+								System.out.println("RoomNo: "+r2.roomNo+", Vaccancy: "+r2.vaccancy+", Rate: "+r2.rate);
+
+								count++;
+
+							}
+
+						}
+
+						System.out.println();
+
+						
+
+						if(count==0) {
+						
+
+	
+
+							break;
+
+						}
+
+						
+
+						System.out.print("Enter the Name: ");
+
+						String guestName=scanf.nextLine();
+
+						System.out.print("Enter the Room No: ");
+
+						int roomNo=scanf.nextInt();
+
+						System.out.print("Enter the No of days of stay: ");
+
+						int noOfDays=scanf.nextInt();
+
+						Room room=new Room();
+
+						
+
+						for(Room r2:r1) {
+
+							if(r2.roomNo==roomNo) {
+
+								if(r2.vaccancy<=0) {
+
+									System.out.println("\nNo Rooms Available Under this type at this Moment...!!!");
+
+									System.out.println("\nTake a Look at Other Rooms in the Option...");
+
+									System.out.println();
+
+									wrong++;
+
+									break;
+
+								}
+
+								room=r2;
+
+								r2.vaccancy--;
+
+								break;
+
+							}
+
+						}
+
+						
+
+						if(wrong!=0) {
+
+							break;
+
+						}
+
+						
+
+						a1.add(new Guest(guestName,room,noOfDays));
+
+						System.out.println();
+
+						break;
+
+					
+
+					case 2:
+
+						new Report().guestReport(a1);
+
+						break;
+						
+
+	
+
+	
+
+						System.out.println();
+
+						break;
+
+					
+
+					case 4:
+
+						System.exit(0);
+
+				}
+
+			}
+
 		}
-		else if(noOfDays>10&&noOfDays<=15) {
-			rate=roomNo.rate*(double)noOfDays;
-			rate-=rate*((double)15/(double)100);
-			discount="15%";
-		}
-		else if(noOfDays>15) {
-			rate=roomNo.rate*(double)noOfDays;
-			rate-=rate*((double)20/(double)100);
-			discount="20%";
-		}
-		else if(noOfDays<=5) {
-			rate=roomNo.rate*(double)noOfDays;
-			discount="Not Appilcable";
-		}
+
 	}
 
+}
 
-	public String toString(int count) {
-		return "Guest No: "+count+" [guestName=" + guestName + ", noOfDays=" + noOfDays + ", rate=" + rate + ", discount=" + discount
-				+ "]";
-	}
+		
