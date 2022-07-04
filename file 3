@@ -1,2 +1,45 @@
-this is third file 
-added by tarun
+package roomManagement;
+
+public class Guest {
+	
+	String guestName;
+	Room roomNo;
+	int noOfDays;
+	double rate;
+	String discount;
+	
+	public Guest() {
+	}
+	
+	public Guest(String guestName,Room roomNo,int noOfDays) {
+		this.guestName=guestName;
+		this.noOfDays=noOfDays;
+		this.roomNo=new Room();
+		this.roomNo=roomNo;
+		
+		if(noOfDays>5&&noOfDays<=10) {
+			this.rate=roomNo.rate*(double)noOfDays;
+			rate-=rate*((double)5/(double)100);
+			discount="5%";
+		}
+		else if(noOfDays>10&&noOfDays<=15) {
+			rate=roomNo.rate*(double)noOfDays;
+			rate-=rate*((double)15/(double)100);
+			discount="15%";
+		}
+		else if(noOfDays>15) {
+			rate=roomNo.rate*(double)noOfDays;
+			rate-=rate*((double)20/(double)100);
+			discount="20%";
+		}
+		else if(noOfDays<=5) {
+			rate=roomNo.rate*(double)noOfDays;
+			discount="Not Appilcable";
+		}
+	}
+
+
+	public String toString(int count) {
+		return "Guest No: "+count+" [guestName=" + guestName + ", noOfDays=" + noOfDays + ", rate=" + rate + ", discount=" + discount
+				+ "]";
+	}
